@@ -20,8 +20,8 @@ def projects():
         "url": repo["html_url"],
         "language": repo["language"],
       }
-      for repo in repos:
-        if repo["name"] in ALLOWED_PROJECTS
+      for repo in repos
+      if repo["name"] in ALLOWED_PROJECTS
     ]
     return jsonify(filtered_project_list)
 
