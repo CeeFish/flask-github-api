@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 GITHUB_USERNAME = "CeeFish"
-ALLOWED_PROJECTS = {"flask-github-api"}
+ALLOWED_PROJECTS = {"flask-github-api", "rails-portfolio"}
 
 @app.route("/projects")
 def projects():
