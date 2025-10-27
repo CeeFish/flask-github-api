@@ -7,7 +7,17 @@ app = Flask(__name__)
 CORS(app)
 
 GITHUB_USERNAME = "CeeFish"
-ALLOWED_PROJECTS = {"flask-github-api", "rails-portfolio"}
+
+ALLOWED_PROJECTS = {
+    "flask-github-api": {
+        "display_name": "Flask GitHub API",
+        "description": "A Python Flask API that fetches GitHub projects dynamically."
+    },
+    "rails-portfolio": {
+        "display_name": "Rails Portfolio",
+        "description": "My personal portfolio built with Ruby on Rails connected to Python API."
+    }
+}
 
 @app.route("/projects")
 def projects():
@@ -15,16 +25,17 @@ def projects():
     response = requests.get(url)
     repos = response.json()
 
-    filtered_project_list = [
-      {
-        "name": repo["name"],
-        "description": repo["description"],
-        "html_url": repo["html_url"],
-        "language": repo["language"],
-      }
-      for repo in repos
-      if repo["name"] in ALLOWED_PROJECTS
-    ]
+    filtered_project_list = []
+    for repo in repos:
+        if repo["name"] in ALLOWED_PROJECTS:
+            info = ALLOWED_PROJECTS[repo["name"]]
+            filtered_project_list.append({
+                "name": info["display_name"],
+                "description": info["description"],
+                "html_url": repo["html_url"],
+                "language": repo["language"],
+            })
+
     return jsonify(filtered_project_list)
 
 if __name__ == "__main__":
