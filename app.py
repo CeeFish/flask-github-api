@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 
 GITHUB_USERNAME = "CeeFish"
+ALLOWED_PROJECTS = {"flask-github-api"}
 
 @app.route("/projects")
 def projects():
@@ -12,16 +13,17 @@ def projects():
     response = requests.get(url)
     repos = response.json()
 
-    project_list = []
-    for repo in repos:
-        if not repo.get("fork"):
-            project_list.append({
-                "name": repo["name"],
-                "description": repo["description"],
-                "url": repo["html_url"],
-                "language": repo["language"],
-            })
-    return jsonify(project_list)
+    filtered_project_list = [
+      {
+        "name": repo["name"],
+        "description": repo["description"],
+        "url": repo["html_url"],
+        "language": repo["language"],
+      }
+      for repo in repos:
+        if repo["name"] in ALLOWED_PROJECTS
+    ]
+    return jsonify(filtered_project_list)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
