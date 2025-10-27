@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import requests
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 GITHUB_USERNAME = "CeeFish"
 ALLOWED_PROJECTS = {"flask-github-api"}
