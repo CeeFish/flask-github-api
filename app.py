@@ -19,7 +19,7 @@ def projects():
       {
         "name": repo["name"],
         "description": repo["description"],
-        "url": repo["html_url"],
+        "html_url": repo["html_url"],
         "language": repo["language"],
       }
       for repo in repos
