@@ -1,7 +1,7 @@
 # Python Flask API
 
 ## Overview
-This is a Python Flask API designed to dynamically load projects to my Rails portfolio.
+This is a Python Flask API designed to dynamically load projects from GitHub to my personal portfolio.
 
 ## Tech Stack
 - Python 3.11
